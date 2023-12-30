@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link href="{{asset('css/clientes.css')}}" rel="stylesheet"  >
+    <link href="https://projetokilberty.blob.core.windows.net/sftp/css/clientes.css" type="text/css"  rel="stylesheet"  >
     
     <title>Document</title>
 </head>
@@ -56,7 +56,9 @@
             <nav>
                 <ul class="navbar-nav sidebar sidebar-dark accordion">
                     <li><a href="/logado" style="color:white;" class="nav-link" >Home</a></li>
-                    <li><a href="/logado" style="color: white"  class="nav-link ultitem  ">Clientes</a> </li>
+                    <li><a href="/logado" style="color: white"  class="nav-link ">Clientes</a> </li>
+                    <li> <a href="/clientes" style="color: white" class="nav-link" >NFSE</a></li>
+                    <li> <a href="/clientes" style="color: white" class="nav-link ultitem" >Meu Carrinho</a></li>
                     <li><button style="width: 100%; border:none; color:white; "  onclick="logout()"  class="btn btn-primary bg-dark" > Logout</button></li>
                 </ul>
             </nav>
@@ -88,11 +90,13 @@
                         </tr>
                     </thead>
                       <tbody>
-                          <tr>
-                              <th>Nhoque & Cia Alimentos</th>
-                              <th class="text-center">42322981000133</th>
-                              <th class="text-center"  ><button class="btn btn-outline-dark" onclick="select(this)" >Selecionar</button></th>  
-                          </tr>  
+                           @foreach ($empresas as $empresa)
+                                <tr>
+                                 <th>{{$empresa->Nome}}</th>
+                                 <th class="text-center">{{$empresa->CGC}}</th>
+                                 <th class="text-center"  ><button class="btn btn-outline-dark" onclick="select(this)" >Selecionar</button></th>  
+                              </tr>
+                           @endforeach  
                       </tbody>   
                       <script>
                       

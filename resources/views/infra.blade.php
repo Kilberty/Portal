@@ -7,7 +7,7 @@
     <title>Document</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link href="{{asset('css/infra.css')}}" rel="stylesheet"  >
+    <link href="https://projetokilberty.blob.core.windows.net/sftp/css/infra.css" rel="stylesheet" type="text/css"   >
 </head>
 <body>
     <script>
@@ -21,7 +21,9 @@
             <nav>
                 <ul class="navbar-nav sidebar sidebar-dark accordion">
                     <li><a href="/logado" style="color:white;" class="nav-link" >Home</a></li>
-                    <li><a href="/clientes" style="color: white"  class="nav-link ultitem  ">Clientes</a> </li>
+                    <li><a href="/clientes" style="color: white"  class="nav-link">Clientes</a> </li>
+                    <li> <a href="NFSE" href="/clientes" style="color:white" class="nav-link" >NFSE</a> </li>
+                    <li> <a href="/clientes" style="color: white" class="nav-link ultitem" >Meu Carrinho</a></li>
                     <button style="width: 100%; border:none; color:white; " type="button"  onclick="logout()" class="btn btn-primary bg-dark" > Logout</button>
                 </ul>
             </nav>
@@ -42,7 +44,6 @@
                     <tr>
                         <th class="text-center">Hostname</th>
                         <th class="text-center">Anydesk</th>
-                        <th class="text-center">Senha</th>
                         <th class="text-center">IP</th>
                         <th class="text-center">Servidor</th>
                         <th class="text-center">Emissor</th>
@@ -52,31 +53,70 @@
                     </tr>
                 </thead>
                   <tbody>
-                      <tr>
-                          <th class="text-center" style="width: 12%" >DESKTOP-I9IVC7U</th>
-                          <th class="text-center" style="width: 7%" >342658509</th>
-                          <th class="text-center"style="width: 7%">Sfc@11</th>
-                          <th class="text-center"style="width: 10%">192.168.15.2</th>
-                          <th class="text-center" style="width: 10%" >Sim</th>
-                          <th class="text-center" style="width: 10%" >Sim</th>
-                          <th class="text-center"style="width: 10%">Não</th>
-                          <th class="text-center" style="width: 10%" ><button class="btn btn-outline-dark" disabled >Baixar</button></th>
-                          <th class="text-center"style="width: 10%">ON</th>  
+                    
+                       @foreach(Session::get('infra') as $pc)  
+                         <tr>
+                           <th class="text-center" style="width: 12%" >{{$pc->Hostname}}</th>
+                           <th class="text-center" style="width: 7%" >{{$pc->Anydesk}}</th>
+                           <th class="text-center"style="width: 10%">{{$pc->IP}}</th>
+                           <th class="text-center" style="width: 10%" >
+                          @if ($pc->Servidor == 1)
+                              <span>Sim</span>
+
+                          @else
+                              <span>Não</span>
+                          @endif  
+                         </th>
+                          
+                          <th class="text-center" style="width: 10%" >
+                            @if ($pc->Emissor == 1)
+                             <span>Sim</span>
+
+                            @else
+                           
+                              <span>Não</span>
+                            @endif  
+                        
+                        
+                        
+                         </th>
+                          
+                          <th class="text-center"style="width: 10%">
+                          @if ($pc->Caixa == 1)
+                              <span>Sim</span>
+
+                          @else
+                             <span>Não</span>
+                          @endif  
+                        
+                        
+                         </th>
+                          
+                          <th class="text-center" style="width: 10%" >
+                            @if ($pc->Caixa == 1)
+                            <button class="btn btn-outline-dark">Baixar</button></th>
+
+                          @else
+                             <button class="btn btn-outline-dark" disabled >Baixar</button></th>
+                          @endif 
+                            
+                            
+                           
+                          
+                          
+                          <th class="text-center"style="width: 10%">
+                           @if ($pc->Status == 1)
+                             <span>OFF</span>
+                           @else
+                             <span>ON</span>
+                           @endif  
+                        
+                        
+                          </th>  
                       </tr>  
-                  
-                      <tr>
-                        <th class="text-center"   >DESKTOP-I5IVC7U</th>
-                        <th class="text-center">342654509</th>
-                        <th class="text-center">Sfc@11</th>
-                        <th class="text-center">192.168.15.3</th>
-                        <th class="text-center">Não</th>
-                        <th class="text-center">Sim</th>
-                        <th class="text-center">Sim</th>
-                        <th class="text-center"  ><button class="btn btn-outline-dark">Baixar</button></th>
-                        <th class="text-center">OFF</th>  
-                    </tr>  
-                  
-                  
+                     @endforeach
+                    
+             
                   
                   
                   
