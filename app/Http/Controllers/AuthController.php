@@ -28,7 +28,8 @@ class AuthController extends Controller
       
       $id = $login->id;
       
-      Session::put('logged',true,now()->addSeconds(30));
+      Session::put('logged',true);
+      Session::put('user',$user);
       return redirect('/logado');
   } else {
      
