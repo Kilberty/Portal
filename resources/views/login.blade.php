@@ -39,7 +39,7 @@
                 </div>
                 
                <div class="row"  > 
-                <div class="col text-center ">
+                <div class="col text-center">
                     <button type="submit" class="btn btn-dark btn-block" style="width: 50%;" >Login</button>
                 </div>
                 
