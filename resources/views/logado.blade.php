@@ -22,7 +22,7 @@
     <div class="box">
         <div class="menu bg-dark ">
             <nav>
-                <div class="row ">
+                <div class="row " style="margin-top: 10%; margin-bottom:10%" >
                     <div class="col">
                         <img src="https://projetokilberty.blob.core.windows.net/sftp/imagens/logo_softcom_branca.png" style="width: 180px; heigth:50px;">
                     </div>
@@ -31,7 +31,7 @@
                 <ul class="navbar-nav sidebar sidebar-dark accordion">
                     <li><a href="/logado" style="color:white;" class="nav-link" >Home</a></li>
                     <li><a href="/clientes" style="color: white"  class="nav-link   ">Clientes</a> </li>
-                    <li> <a href="/clientes" href="/clientes" style="color:white" class="nav-link" >NFSE</a> </li>
+                    <li> <a href="/clientes" href="/clientes" style="color:white" class="nav-link" >NFS-e</a> </li>
                     <li> <a href="/clientes" style="color: white" class="nav-link ultitem" >Meu Carrinho</a></li>
                     <button style="width: 100%; border:none; color:white; " type="button"  onclick="logout()" class="btn btn-primary bg-dark" > Logout</button>
                 </ul>
