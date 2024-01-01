@@ -223,10 +223,10 @@
                      
                      
                      <th class="text-center"style="width: 10%">
-                      @if ($pc->Status == 1)
-                        <span>OFF</span>
-                      @else
+                      @if ($pc->Ligado == 1)
                         <span>ON</span>
+                      @else
+                        <span>OFF</span>
                       @endif  
                    
                    
