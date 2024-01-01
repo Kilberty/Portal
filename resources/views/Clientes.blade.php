@@ -6,8 +6,11 @@
     , initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="{{ asset('css/clientes.css') }}" type="text/css"  rel="stylesheet">
+    <link href="{{ asset('css/menu.css') }}" type="text/css"  rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <link  href="{{asset('css/clientes.css')}}" type="text/css"  rel="stylesheet"  >
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
     
     <title>Clientes</title>
 </head>
@@ -57,7 +60,7 @@
     
     </script>
     
-    <div class="box" style="background-color:white" >
+    <div class="box" style="background-color:snow" >
         <div class="menu  " style="background-color:black "  >
             <nav>
                 <div class="row " style="margin-top: 10%; margin-bottom:10%; "  >
@@ -70,7 +73,29 @@
                 <ul class="navbar-nav sidebar sidebar-dark accordion">
                     <li><a href="/logado" class="nav-link menuitem"><span style="margin-left:10px">Home</span></a></li>
                     <li><a href="/clientes" class="nav-link menuitem rotaativa"><span style="margin-left:10px">Clientes</span></a></li>
-                    <li><a href="/clientes" class="nav-link menuitem"><span style="margin-left:10px">NFS-e</span></a></li>
+                    <li>
+                        <a class="nav-link menuitem" data-toggle="collapse" href="#menunfse">
+                            <span style="margin-left: 10px; "  >NFS-e</span>
+                        </a>
+                        <div id="menunfse" class="collapse">
+                            <ul>
+                                <li>
+                                    <a href="" class="nav-link menuitem">
+                                        <span style="margin-left: 10px">Recuperar XML</span>
+                                    </a>
+                                </li>
+                            
+                                <li>
+                                    <a href="" class="nav-link menuitem">
+                                        <span style="margin-left: 10px">Comparar XML</span>
+                                    </a>
+                                </li>
+                            
+                            
+                            
+                            </ul>
+                        </div>
+                    </li>
                     <li><a href="/clientes" class="nav-link menuitem"><span style="margin-left:10px">Meu Carrinho</span></a></li>
                    
                 </ul>
@@ -79,7 +104,7 @@
             <div class="divLogout">
                <div class="row" style="height: 100%">
                    <div class="col" style="height: 100%">
-                    <button style="width: 100%; border:none; border-radius:0px; color:white;  height:100%"  onclick="logout()"   class="btn btn-primary bg-dark" > Logout</button>
+                    <button style="width: 100%; border:none; border-radius:0px; color:white;  height:100%"  onclick="logout()"   class="btn btn-dark" > Logout</button>
 
                    </div>
             
@@ -128,8 +153,11 @@
                 </div>
                
               <div class="lista">
-                <div class="table-responsive">
-                   <table class="table table-bordered "">
+                <div class="tabela">
+                    
+                </div>
+                <div class="table-responsive"  >
+                   <table class="table table-bordered " >
                     <thead>
                         <tr>
                             <th class="text-center" style="width: 40%;"  >Cliente</th>
@@ -170,13 +198,10 @@
 
 
 
-
-
+  
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
-
-
-
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
 
 
 
