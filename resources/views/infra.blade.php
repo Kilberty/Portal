@@ -9,6 +9,7 @@
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <link href="{{ asset('css/infra.css') }}" type="text/css"  rel="stylesheet">
     <link href="{{ asset('css/menu.css') }}" type="text/css"  rel="stylesheet">
 </head>
@@ -17,6 +18,13 @@
         function logout(){
             window.location.href = '/logout'
         }
+   
+        function voltar(){
+            window.location.href = '/clientes'
+        }
+   
+   
+   
     </script>
    
    <div class="box">
@@ -88,14 +96,62 @@
                   </div>
                   <div class="col-2 bg-dark " style="padding-right:0px; display:flex;" >
                      <div class="botoes">
-                       <button class="btn btn-primary mb-3 " >Voltar</button>
-                       <button class="btn btn-primary mb-2 " >Serviços</button>
+                       <button class="btn btn-primary" type="button"  style="margin-top: 2%" onclick="voltar()"  >Voltar</button>
+                       <div class="dropdown botoes"  >
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                          Serviços
+                        </button>
+                        <ul class="dropdown-menu">
+                          <li><a class="dropdown-item" href="#">Produtos do Cliente</a></li>
+                          <li><hr class="dropdown-divider"></li>
+                          <li><a class="dropdown-item" href="#">Backup Cloud</a></li>
+                          <li><a class="dropdown-item" href="#">Nuvem Fiscal</a></li>
+                          <li><a class="dropdown-item" href="#">Pix</a></li>
+                        </ul>
+                      </div>
                      </div>
                   
                   </div> 
                </div>
         </div>
        
+        <div class="modal fade" id="exampleModal"   data-backdrop="static"  tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered " role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">Detalhes</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                          <li class="list-group-item">
+                            <h6 class="card-title" >TEF</h6>
+                               <div class="row">
+                                <div class="col"><span>Situação : Instalado</span></div>
+                                <div class="col"> <span>Chave/Checkout : 21BCA</span></div>
+                               </div>
+                                <div class="row" style="margin-top:3%" >
+                                    <div class="col">Tipo : SITEF</div>
+                                </div>
+                            </li>
+                    
+                         
+                        </ul>
+                       
+                      </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
        <div class="page">
            <div class="lista">
             <div class="tabela">
@@ -103,25 +159,26 @@
                 <table class="table table-bordered ">
                  <thead>
                      <tr>
-                         <th class="text-center" style="width: 11%" >Hostname</th>
-                         <th class="text-center" style="width: 11%" >Anydesk</th>
-                         <th class="text-center" style="width: 11%" >IP</th>
-                         <th class="text-center" style="width: 11%" >Servidor</th> 
-                         <th class="text-center" style="width: 11%" >Emissor</th>
-                         <th class="text-center" style="width: 11%" >Caixa</th>
-                         <th class="text-center" style="width: 11%" >XML</th>
-                         <th class="text-center" style="width: 11%" >Status</th>
-                         <th class="text-center" style="width: 11%" >Detalhes</th>
+                         <th class="text-center" style="width: 10%" >Hostname</th>
+                         <th class="text-center" style="width: 10%" >Anydesk</th>
+                         <th class="text-center" style="width: 10%" >IP</th>
+                         <th class="text-center" style="width: 10%" >Servidor</th> 
+                         <th class="text-center" style="width: 10%" >Emissor</th>
+                         <th class="text-center" style="width: 10%" >Caixa</th>
+                         <th class="text-center" style="width: 10%" >XML</th>
+                         <th class="text-center" style="width: 10%" >Status</th>
+                         <th class="text-center" style="width: 10%" >Detalhes</th>
+                         <th class="text-center" style="width: 10%" >Config</th>
                      </tr>
                  </thead>
                    <tbody>
                         
                     @foreach(Session::get('infra') as $pc)  
                     <tr>
-                      <th class="text-center" style="width: 11%" >{{$pc->Hostname}}</th>
-                      <th class="text-center" style="width: 11%" >{{$pc->Anydesk}}</th>
-                      <th class="text-center"style="width: 11%">{{$pc->IP}}</th>
-                      <th class="text-center" style="width: 11%" >
+                      <th class="text-center" style="width: 10%" >{{$pc->Hostname}}</th>
+                      <th class="text-center" style="width: 10%" >{{$pc->Anydesk}}</th>
+                      <th class="text-center"style="width: 10%">{{$pc->IP}}</th>
+                      <th class="text-center" style="width: 10%" >
                      @if ($pc->Servidor == 1)
                          <span>Sim</span>
   
@@ -130,7 +187,7 @@
                      @endif  
                     </th>
                      
-                     <th class="text-center" style="width: 11%" >
+                     <th class="text-center" style="width: 10%" >
                        @if ($pc->Emissor == 1)
                         <span>Sim</span>
   
@@ -143,7 +200,7 @@
                    
                     </th>
                      
-                     <th class="text-center"style="width: 11%">
+                     <th class="text-center"style="width: 10%">
                      @if ($pc->Caixa == 1)
                          <span>Sim</span>
   
@@ -154,7 +211,7 @@
                    
                     </th>
                      
-                     <th class="text-center" style="width: 11%" >
+                     <th class="text-center" style="width: 10%" >
                        @if ($pc->Caixa == 1)
                        <button class="btn btn-outline-dark">Baixar</button></th>
   
@@ -166,7 +223,7 @@
                       
                      
                      
-                     <th class="text-center"style="width: 11%">
+                     <th class="text-center"style="width: 10%">
                       @if ($pc->Status == 1)
                         <span>OFF</span>
                       @else
@@ -177,12 +234,19 @@
                      </th>
                      
                      
-                     <th class="text-center"style="width: 11%">
-                      <button class="btn btn-outline-dark">Visualizar</button></th>
+                     <th class="text-center"style="width: 10%">
+                      <button class="btn btn-outline-dark" type="button"  data-toggle="modal" data-target="#exampleModal"  >Visualizar</button></th>
                    
                      </th> 
 
-
+                     <th class="text-center" style="width: 10%" >
+                        @if ($pc->Caixa == 1)
+                        <button class="btn btn-outline-dark">Configurar</button></th>
+   
+                      @else
+                         <button class="btn btn-outline-dark" disabled >Configurar</button></th>
+                      @endif 
+                        
 
 
                  </tr>  
@@ -224,10 +288,10 @@
     </div>
     
     
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    
 
+  
+  
+  
 
 
 
