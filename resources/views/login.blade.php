@@ -18,11 +18,6 @@
             <form method="POST" action="/checalogin" style="width: 100%;heigth:100%;"  >
                 @csrf 
            
-                <div class="row" style="margin-bottom: 10%">
-                    <div class="imagem text-center " >
-                        <img src="https://projetokilberty.blob.core.windows.net/sftp/imagens/logo_softcom.png">
-                    </div>
-                </div>  
                 
                 <div class="row" style="margin-bottom: 5%" >
                    
