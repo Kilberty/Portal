@@ -1,26 +1,33 @@
-html{
+html {
     width: 100%;
     height: 100%;
+    padding: 0;
+    margin: 0
 }
 
-body{
- display: flex;
- width: 100vw;
- height:100vh;
+body {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
 
 }
 
-.box{
+h2 {
+    font-weight: 700;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.box {
     width: 100%;
     height: 100%;
     display: flex;
     flex-direction: row;
-    background-color: #31304D;
+    background-color: #e6e8f5;
 }
- 
 
-.CaixaOcorrencia{
-    color:#492E87;
+
+.CaixaOcorrencia {
+    color: #2f2f5e;
     margin-top: 1%;
     width: 100%;
     height: 99vh;
@@ -28,38 +35,36 @@ body{
     flex-direction: column;
 }
 
-.Ocorrencias{
-  width: 100%;
-  height: 60%;
-  display: flex;
-  flex-direction: column;
- 
-
-  border: 2px solid white;
+.Ocorrencias {
+    width: 100%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
 }
 
-.OcorrenciasHeader{
- width: 100%;
- height: 15%;
- display: flex;
- flex-direction: column;
- align-items: center;
- justify-content: center;  
+.OcorrenciasHeader {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 2px black solid;
 }
 
 
-.OcorrenciasMain{
- 
+.OcorrenciasMain {
     width: 100%;
     height: 85%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    display: flex; 
-   
+    display: flex;
+
 }
 
-.OcorrenciasLista{
+.OcorrenciasLista {
     width: 100%;
     height: 59vh;
     max-height: 60vh;
@@ -68,9 +73,10 @@ body{
     align-items: center;
     overflow-y: auto;
     justify-content: flex-start;
+    margin-top: 1%;
 }
 
-.OcorrenciasAndamento{
+.OcorrenciasAndamento {
     width: 100%;
     height: 38vh;
     display: flex;
@@ -79,27 +85,27 @@ body{
 
 }
 
-.AndamentoHeader{
+.AndamentoHeader {
     width: 100%;
     height: 15%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;  
+    justify-content: center;
+    border-bottom: 2px black solid;
 }
 
-.AndamentoMain{
- 
+.AndamentoMain {
     width: 100%;
     height: 85%;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     justify-content: center;
-    display: flex; 
-   
+    display: flex;
+
 }
 
-.AndamentoLista{
+.AndamentoLista {
     width: 100%;
     height: 30vh;
     max-height: 30vh;
@@ -110,100 +116,92 @@ body{
     justify-content: flex-start;
 }
 
-
-
-
-.main{
- width: 100%;
- height: 100%;
- display: flex;
- flex-direction: column;
-
-}
-
-
-.menu{
-    height: 13%;
-    width: 100%;
-    border-bottom: 2px gray solid;
+.AndamentoItem {
     display: flex;
     flex-direction: row;
-    justify-content: left;
-    align-items: center;
-    
-    
+    width: 100%;
+    justify-content: space-around;
 }
 
+.main {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
 
-.grafico{
-    margin-top: 1%;
-    height: 47%;
+.menu {
+    height: 15%;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.grafico {
+    height: 45%;
     width: 100%;
     display: flex;
     flex-direction: column;
     border: 2px solid black;
-
 }
 
-
-.reunioes{
-   height: 100%;
-   width: 40%;
-   display: flex;
-   flex-direction: column;
-   border: 2px solid black;
+.reunioes {
+    height: 100%;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    border: 2px solid black;
+    margin-left: -0.6vw;
 }
 
-
-.ReunioesHeader{
+.ReunioesHeader {
     width: 100%;
     height: 15%;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;  
+    justify-content: center;
+    border-bottom: 2px black solid;
 }
 
-
-
-
-.MainBottom{
+.MainBottom {
     width: 59%;
     height: 100%;
     display: flex;
     flex-direction: row-reverse;
- 
 }
 
-
-.BoxBottom{
+.BoxBottom {
     margin-top: 1%;
     margin-left: 1%;
-    height: 36%;
+    height: 38%;
     width: 100%;
     display: flex;
     flex-direction: row;
 }
 
-.UserBottom{
-  height: 100%;
-  width: 30%;
-  display: flex;
-  justify-content: flex-end;
-  flex-direction: column;
+.UserBottom {
+    height: 100%;
+    width: 30%;
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column;
 }
 
-
-
-.botoes{
-    
+.botoes {
     display: flex !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
 }
 
-.btn img{
+.btn {
+    background-color: #5757cf;
+}
+
+.btn img {
     width: 60px;
     vertical-align: middle;
     height: auto;
