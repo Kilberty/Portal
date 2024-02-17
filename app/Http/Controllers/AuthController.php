@@ -16,8 +16,8 @@ class AuthController extends Controller
     
     $usuarioupper = strtoupper($usuario);
     
-    $login = Usuario::where('name',$usuarioupper)  
-                     -> where('password',$senha)
+    $login = Usuario::where('Usuario',$usuarioupper)  
+                     -> where('Senha',$senha)
                      ->first();
     
     
