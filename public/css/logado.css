@@ -239,6 +239,27 @@ input:focus, textarea:focus{
     color: #5757cf;
 }
 
+.CalendarioDiaMes{
+    width: 40%;
+    height: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    
+}
+
+.Calendario{
+    width: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-color: #5757cf;
+    border-radius: 0.25rem;
+}
+
 
 .Servico{
     

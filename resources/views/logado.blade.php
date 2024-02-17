@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Seu Título Aqui</title>
+    <title>Agenda</title>
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery -->
@@ -92,13 +92,27 @@
          if(!Chegada.value.trim()){
             Chegada.value = Hora + ":"+Minutos
          }
-
-
-
-
         }
-        }
-    
+    }
+
+   function atualizarHora() {
+      var data = new Date();
+      var hora = data.getHours();
+      var minutos = data.getMinutes();
+      var segundos = data.getSeconds();
+
+      // Formata a hora para garantir que tenha dois dígitos
+      hora = hora < 10 ? '0' + hora : hora;
+      minutos = minutos < 10 ? '0' + minutos : minutos;
+      segundos = segundos < 10 ? '0' + segundos : segundos;
+
+      var horaAtual = hora + ':' + minutos + ':' + segundos;
+
+      // Atualiza o conteúdo do elemento com id 'horaAtual'
+      document.getElementById('horaAtual').innerHTML = horaAtual;
+    }
+    setInterval(atualizarHora,1000);
+    atualizarHora();
     
     </script>
     <div class="box ">
@@ -299,6 +313,29 @@
                                 </button>
                                 <span>Hoje</span>
                             </div>
+                        
+                            <div class="col" style="height: 80px;" >
+                                <div class="Calendario">
+                                  <div class="row">
+                                    <div class="col-6">
+                                        <div class="CalendarioDiaMes">
+                                            <span>{{Session::get('dia')}}</span>
+                                            <p id="horaAtual" name="horaAtual" ></p>
+                                        </div>
+                                    </div>
+                                    <div class="col-6">
+                                        <span>Teste</span>
+                                    </div>
+                                  </div>
+                                </div>
+                             
+                             
+                                                         
+                            </div>
+                        
+                        
+                        
+                        
                         </div>
                     </div>
                     <div class="grafico"></div>

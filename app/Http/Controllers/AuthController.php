@@ -13,7 +13,18 @@ class AuthController extends Controller
   function Auth(Request $request){
     $usuario = $request->input('usuario');
     $senha = $request->input('senha');
+    $data_completa = date("d-m-Y");
+    $divide_data = explode("-",$data_completa);
+    $dia = $divide_data[0];
     
+    if (strlen($dia)<2) {
+      $dia = str_pad($partesData[0], 2, "0", STR_PAD_LEFT);
+    } 
+
+    
+
+
+
     $usuarioupper = strtoupper($usuario);
     
     $login = Usuario::where('Usuario',$usuarioupper)  
@@ -27,7 +38,8 @@ class AuthController extends Controller
     if ($login) {
       
       $id = $login->id;
-      
+      Session::put('dia',$dia);     
+      Session::put('data',$data_completa);
       Session::put('logged',true);
       Session::put('user',$user);
       return redirect('/logado');
