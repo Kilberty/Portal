@@ -19,7 +19,7 @@ use App\Http\Controllers\LogoutController;
 use App\Http\Controllers\ClientesController;
 use App\Http\Controllers\InfraController;
 use App\Http\Controllers\ComputersController;
-
+use App\Http\Controllers\OcorrenciasController;
 
 Route::get('/', function () {
    return redirect('/login');
@@ -31,3 +31,4 @@ Route::get('/logado', [LogadoController::class,'Logado']);
 Route::get('/clientes',[ClientesController::class,'clientes']);
 Route::post('/infradados',[InfraController::class,'infra']);
 Route::get('/infra',[ComputersController::class,'computers'])->name('infra');
+Route::post('/BuscaOcorrencia',[OcorrenciasController::class,'Ocorrencias']);

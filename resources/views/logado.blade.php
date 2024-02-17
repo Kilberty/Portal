@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Agenda</title>
     <!-- Bootstrap CSS -->
@@ -21,10 +22,46 @@
 
 <body>
     <script>
-    function logout() {
+     function logout() {
         window.location.href = '/logout'
     }
     
+    function BuscaDia(){
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    $.ajax({
+        url: "/BuscaOcorrencia",
+        type: "POST",
+        data: {
+            _token: csrfToken,
+            Data : document.getElementById('Data').value
+        },
+        success: function(response) {
+            location.reload();
+        },
+    })
+    } 
+    
+    function Hoje() {
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    var DataAtual = new Date();
+    var Ano = DataAtual.getFullYear();
+    var Mes = DataAtual.getMonth() + 1;
+    var Dia = DataAtual.getDate();
+    var DataFormatada = Ano + '-' + Mes.toString().padStart(2, '0') + '-' + Dia.toString().padStart(2, '0');
+
+    $.ajax({
+        url: "/BuscaOcorrencia",
+        type: "POST",
+        data: {
+            _token: csrfToken,
+            Data: DataFormatada
+        },
+        success: function(response) {
+            location.reload();
+        },
+    });
+}
+
     function HoraChegada(){
         var Chegada = document.getElementById("Chegada");
         if (!Chegada.value.trim()) { // Verifica se o valor do campo está vazio ou contém apenas espaços em branco
@@ -94,27 +131,7 @@
          }
         }
     }
-
-   function atualizarHora() {
-      var data = new Date();
-      var hora = data.getHours();
-      var minutos = data.getMinutes();
-      var segundos = data.getSeconds();
-
-      // Formata a hora para garantir que tenha dois dígitos
-      hora = hora < 10 ? '0' + hora : hora;
-      minutos = minutos < 10 ? '0' + minutos : minutos;
-      segundos = segundos < 10 ? '0' + segundos : segundos;
-
-      var horaAtual = hora + ':' + minutos + ':' + segundos;
-
-      // Atualiza o conteúdo do elemento com id 'horaAtual'
-      document.getElementById('horaAtual').innerHTML = horaAtual;
-    }
-    setInterval(atualizarHora,1000);
-    atualizarHora();
-    
-    </script>
+ </script>
     <div class="box ">
         <div class="row" style="width: 100%">
             <div class="col-4">
@@ -217,9 +234,6 @@
                                                                             <label for="Chegada">Início:</label>
                                                                             <input type="text" class="form-control"  oninput="FormatarHoraChegada()"  onclick="HoraChegada()" id="Chegada">
                                                                           </div>
-                                                                   
-                                                                      
-                                                                      
                                                                         </div>
                                                                   
                                                                         <div class="col-1"></div>
@@ -229,16 +243,8 @@
                                                                               <input type="date" class="form-control" id="Data_Conclusao">
                                                                             </div>
                                                                         </div>
-                                                                  
-                                                                  
-                                                                  
-                                                                  
-                                                                  
-                                                                  
-                                                                    </div> 
+                                                                  </div> 
                                                             </div>
-                                                        
-                                                        
                                                         </div>
                                                         <div class="Descricao">
                                                             <textarea name="Descri" class="form-control" id="Servico" cols="30" rows="10"></textarea>
@@ -248,12 +254,7 @@
                                                   </div>
                                                 </div>
                                               </div>
-  
-
-
-                                        
-                                        
-                                        </tbody>
+                                            </tbody>
                                     </table>
                                 </div>
                             </div>
@@ -302,13 +303,13 @@
                                 <span>Reuniões</span>
                             </div>
                             <div class="col botoes ">
-                                <button class="btn btn-outline-primary" style="height: 80px">
+                                <button class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#BuscaData"  style="height: 80px">
                                     <img src="{{asset('images/calendar.png')}}">
                                 </button>
                                 <span>Calendário</span>
                             </div>
                             <div class="col botoes ">
-                                <button class="btn btn-outline-primary" style="height: 80px">
+                                <button class="btn btn-outline-primary" onclick="Hoje()"  style="height: 80px">
                                     <img src="{{asset('images/calendar.png')}}">
                                 </button>
                                 <span>Hoje</span>
@@ -328,15 +329,8 @@
                                     </div>
                                   </div>
                                 </div>
-                             
-                             
-                                                         
                             </div>
-                        
-                        
-                        
-                        
-                        </div>
+                         </div>
                     </div>
                     <div class="grafico"></div>
                     <div class="BoxBottom">
@@ -349,17 +343,58 @@
                             <div class="UserBottom">
                                 <h5>Bem Vindo, {{session('user')}}</h5>
                                 <button class="btn btn-dark" type="button" onclick="logout()">Logout</button>
+                              
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+     </div>
 
+      <div class="modal fade" id="BuscaData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="staticBackdropLabel">Ir para data</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <div class="ModalCalendarioBody">
+                <div class="ModalCalendarioMain">
+                    <div class="input-group">
+                        <input type="date" class="form-control" id="Data" value="{{Session::get('data')}}">
+                        <button class="btn btn-outline-primary" onclick="BuscaDia()" data-bs-dismiss="modal"  > Buscar </button>
+                       
+                    </div>
+                </div>
+              </div>
+           </div>    
+        </div>
+    
+      <script>
+         function atualizarHora() {
+      var data = new Date();
+      var hora = data.getHours();
+      var minutos = data.getMinutes();
+      var segundos = data.getSeconds();
 
+      // Formata a hora para garantir que tenha dois dígitos
+      hora = hora < 10 ? '0' + hora : hora;
+      minutos = minutos < 10 ? '0' + minutos : minutos;
+      segundos = segundos < 10 ? '0' + segundos : segundos;
 
+      var horaAtual = hora + ':' + minutos + ':' + segundos;
 
-</body>
+      // Atualiza o conteúdo do elemento com id 'horaAtual'
+      document.getElementById('horaAtual').innerHTML = horaAtual;
+       }
+        setInterval(atualizarHora,1000);
+        atualizarHora();
+      </script>
+    
+    
+    
+    </body>
 
 </html>
