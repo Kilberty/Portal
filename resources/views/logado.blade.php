@@ -7,15 +7,10 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Agenda</title>
-    <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-    <!-- Popper.js -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
-    <!-- Bootstrap JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Seu arquivo CSS personalizado -->
     <link href="{{asset('css/logado.css')}}" type="text/css" rel="stylesheet">
     <title>Portal</title>
 </head>
@@ -48,7 +43,6 @@
     var Mes = DataAtual.getMonth() + 1;
     var Dia = DataAtual.getDate();
     var DataFormatada = Ano + '-' + Mes.toString().padStart(2, '0') + '-' + Dia.toString().padStart(2, '0');
-
     $.ajax({
         url: "/BuscaOcorrencia",
         type: "POST",
@@ -59,9 +53,18 @@
         success: function(response) {
             location.reload();
         },
-    });
-}
+    });}
 
+    function ModalOcorrenciaData(){
+        var DataAtual = new Date();
+        var Ano = DataAtual.getFullYear();
+        var Mes = DataAtual.getMonth() + 1;
+        var Dia = DataAtual.getDate();
+        var DataFormatada = Ano + '-' + Mes.toString().padStart(2, '0') + '-' + Dia.toString().padStart(2, '0');
+        document.getElementById('retornoInput').value = DataFormatada;
+    }
+    
+    
     function HoraChegada(){
         var Chegada = document.getElementById("Chegada");
         if (!Chegada.value.trim()) { // Verifica se o valor do campo está vazio ou contém apenas espaços em branco
@@ -131,6 +134,11 @@
          }
         }
     }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        ModalOcorrenciaData();
+    });
+
  </script>
     <div class="box ">
         <div class="row" style="width: 100%">
@@ -181,9 +189,6 @@
                                                                      <datalist id="DEVS" >
                                                                       <option value="Kilberty">
                                                                      </datalist>
-                                                                   
-                                                                   
-                                                                   
                                                                     </div>
                                                                </div>
                                                                  
@@ -291,13 +296,13 @@
                                 <span>Atualizar</span>
                             </div>
                             <div class="col botoes ">
-                                <button class="btn btn-outline-primary" style="height: 80px">
+                                <button class="btn btn-outline-primary"  data-bs-toggle="modal" data-bs-target="#CreateOcorrencia" style="height: 80px">
                                     <img src="{{asset('images/New.png')}}">
                                 </button>
                                 <span>Atividade</span>
                             </div>
                             <div class="col botoes ">
-                                <button class="btn btn-outline-primary" style="height: 80px">
+                                <button class="btn btn-outline-primary"  style="height: 80px">
                                     <img src="{{asset('images/New.png')}}">
                                 </button>
                                 <span>Reuniões</span>
@@ -351,27 +356,109 @@
             </div>
         </div>
      </div>
-
-      <div class="modal fade" id="BuscaData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        
+     <div class="modal fade" id="BuscaData" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
         <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">Ir para data</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-              <div class="ModalCalendarioBody">
-                <div class="ModalCalendarioMain">
-                    <div class="input-group">
-                        <input type="date" class="form-control" id="Data" value="{{Session::get('data')}}">
-                        <button class="btn btn-outline-primary" onclick="BuscaDia()" data-bs-dismiss="modal"  > Buscar </button>
-                       
+             <div class="modal-content">
+                  <div class="modal-header">
+                      <h5 class="modal-title" id="DataLabel">Ir para data</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="ModalCalendarioBody">
+                        <div class="ModalCalendarioMain">
+                           <div class="input-group">
+                                <input type="date" class="form-control" id="Data" value="{{Session::get('data')}}">
+                                <button class="btn btn-outline-primary" onclick="BuscaDia()" data-bs-dismiss="modal"  > Buscar </button>
+                             </div>
+                         </div>
+                      </div>
+                  </div>    
+             </div>
+         </div>
+     </div>    
+                        
+        
+        <div class="modal fade modal-lg" id="CreateOcorrencia" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                           <h5 class="modal-title" id="OcorrenciaLabel">Criar Atividade</h5>
+                           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                         </div>
+                        <div class="modal-body">
+                            <div class="ModalCreateOcorrencia">
+                                <form action="" method="POST" >
+                                  @csrf
+                                  <div class="form-group">
+                                    <label for="Atividade_Descri">Descrição</label>
+                                    <textarea name="Atividade_Descri" id="Atividade_Descri" class="form-control" cols="30" rows="10"></textarea>
+                                  </div> 
+                                   <div class="row" style="margin-top: 2vh;" >
+                                     <div class="col">   
+                                        <div class="form-group">
+                                            <label for="Tipo_Ocorrencia">Tipo de Ocorrência :</label>
+                                            <select class="form-select" aria-label="Default select example">
+                                                <option selected disabled >Selecione</option>
+                                                <option value="1">One</option>
+                                                <option value="2">Two</option>
+                                                <option value="3">Three</option>
+                                              </select>                                       
+                                        </div>
+                                     </div>
+                                          <div class="col">
+                                             <div class="form-group">
+                                                  <label for="Dev">DEV</label>
+                                                  <input list="DEVS" class="form-control" id="DevModal"  >
+                                             </div>
+                                         </div>
+                                         <div class="col">
+                                           <div class="form-group">
+                                               <label for="DataRetorno">Data</label>
+                                               <input type="date" value="" id="retornoInput" class="form-control" >
+                                            </div>
+                                        </div>
+                                    </div>  
+                                   
+                                    <div class="d-flex flex-row-reverse" style="margin-top: 5vh;" >
+                                       <div class="col-2">
+                                         <button class="btn btn-outline-primary" type="submit" data-bs-dismiss="modal" style="width: 100px;" >Salvar</button>
+                                        </div>   
+                                    </div>    
+                                 
+                                  
+                                
+                                
+                                
+                                </form>
+                            </div>
+                        </div>
+                           
+                    
                     </div>
-                </div>
-              </div>
-           </div>    
+            </div>
         </div>
-    
+        
+       
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       <script>
          function atualizarHora() {
       var data = new Date();
