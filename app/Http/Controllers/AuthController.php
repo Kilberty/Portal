@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Usuario;
+use App\Models\Ocorrencia;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cookie;
+
 class AuthController extends Controller
 
 {
@@ -19,11 +21,6 @@ class AuthController extends Controller
     if (strlen($dia)<2) {
       $dia = str_pad($partesData[0], 2, "0", STR_PAD_LEFT);
     } 
-
-    
-
-
-
     $usuarioupper = strtoupper($usuario);
     
     $login = Usuario::where('Usuario',$usuarioupper)  
@@ -34,12 +31,29 @@ class AuthController extends Controller
      $usuariolower = strtolower($usuarioupper);
      $user = ucfirst($usuariolower);
     
-    if ($login) {
+    
+    
+    
+    
+    
+     if ($login) {
+      
+      
       
       $id = $login->id;
-      Session::put('dia',$dia);     
-      Session::put('data',$data_completa);
+      $Ocorrencia = Ocorrencia::where('Colaborador_ID',$id)
+      ->where('Data_Retorno',$data_completa)
+      ->with('tipoOcorrencia')
+      ->get(); 
 
+      Session::put('Atividades',$Ocorrencia);
+
+
+      
+      
+      Session::put('dia',$dia);     
+      Session::put('id',$id);
+      Session::put('data',$data_completa);
       Session::put('logged',true);
       Session::put('user',$user);
       return redirect('/logado');

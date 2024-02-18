@@ -44,7 +44,7 @@
     var Dia = DataAtual.getDate();
     var DataFormatada = Ano + '-' + Mes.toString().padStart(2, '0') + '-' + Dia.toString().padStart(2, '0');
     $.ajax({
-        url: "/BuscaOcorrencia",
+        url: "/DataOcorrencia",
         type: "POST",
         data: {
             _token: csrfToken,
@@ -135,12 +135,51 @@
         }
     }
 
+    
+      
+    
     document.addEventListener('DOMContentLoaded', function() {
         ModalOcorrenciaData();
-    });
+        var form = document.getElementById('ocorrenciaForm');
+    var modal = document.getElementById('CreateOcorrencia');
 
- </script>
+    form.addEventListener('submit', function (event) {
+      if (!form.checkValidity()) {
+        event.preventDefault(); // Impede o envio do formulário se não for válido
+        event.stopPropagation();
+      } else {
+        // Se o formulário for válido, feche o modal
+        var bsModal = new bootstrap.Modal(modal);
+        bsModal.hide();
+      }
+
+      // Adiciona a classe 'was-validated' ao formulário para mostrar os estilos de validação do Bootstrap
+      form.classList.add('was-validated');
+    });
+  }); 
+   
+   
+    window.onload = function() {        
+      $data = document.getElementById('DataSessao').value;
+      $.ajax({
+        url: "/DataOcorrencia",
+        type: "POST",
+        data: {
+            _token: csrfToken,
+            Data: $data
+        },
+        success: function(response) {
+            location.reload();
+        },
+    })
+    }
+
+
+
+
+</script>
     <div class="box ">
+        <input type="hidden" id="DataSessao" value="{{Session::get('data')}}">
         <div class="row" style="width: 100%">
             <div class="col-4">
                 <div class="CaixaOcorrencia " style="margin-left: 1%">
@@ -160,13 +199,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
+                                           @foreach(Session::get('Atividades') as $Atividades)
                                             <tr>
-                                                <th class="text-center"><a  data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                                   Front
-                                                </a></th>
-                                                <th class="text-center">00:00</th>
-                                                <th class="text-center">00:00</th>
-                                            </tr>
+                                                <th class="text-center"><a data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{$Atividades->tipoOcorrencia.Atividade_Descri}}</a></th>
+                                                    <th class="text-center">$Atividades->HoraChegada</th>
+                                                    <th class="text-center">$Atividades->HoraSaida</th>
+                                              </tr>
+                                            @endforeach
                                             <div class="modal fade  modal-xl" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
                                                 <div class="modal-dialog">
                                                   <div class="modal-content">
@@ -183,12 +222,13 @@
                                                           <div class="col-10">
                                                             <div class="d-flex flex-row-reverse ">
                                                                 <div class="col-2">
-                                                                    <div class="form-group">
+                                                                    <div class="form-group" aria-autocomplete="off" >
                                                                      <label for="DEV">DEV:</label>
-                                                                     <input list="DEVS" class="form-control" id="DEV">
-                                                                     <datalist id="DEVS" >
-                                                                      <option value="Kilberty">
-                                                                     </datalist>
+                                                                     <select class="form-select" id="TipoOC" name="TipoOC" >
+                                                                          @foreach(Session::get('DEVS') as $dev)
+                                                                            <option value={{$dev->id}}>{{$dev->Usuario}}</option>
+                                                                          @endforeach  
+                                                                      </select>  
                                                                     </div>
                                                                </div>
                                                                  
@@ -346,7 +386,7 @@
                         </div>
                         <div class="MainBottom">
                             <div class="UserBottom">
-                                <h5>Bem Vindo, {{session('user')}}</h5>
+                                <h5>Bem Vindo, {{Session('user')}}</h5>
                                 <button class="btn btn-dark" type="button" onclick="logout()">Logout</button>
                               
                             </div>
@@ -378,7 +418,7 @@
          </div>
      </div>    
                         
-        
+   
         <div class="modal fade modal-lg" id="CreateOcorrencia" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
                     <div class="modal-content">
@@ -388,78 +428,57 @@
                          </div>
                         <div class="modal-body">
                             <div class="ModalCreateOcorrencia">
-                                <form action="" method="POST" >
+                                <form action="/CreateOcorrencia" method="POST" >
                                   @csrf
                                   <div class="form-group">
                                     <label for="Atividade_Descri">Descrição</label>
-                                    <textarea name="Atividade_Descri" id="Atividade_Descri" class="form-control" cols="30" rows="10"></textarea>
+                                    <textarea name="Atividade_Descri" id="Atividade_Descri" required class="form-control" cols="30" rows="10"></textarea>
                                   </div> 
                                    <div class="row" style="margin-top: 2vh;" >
                                      <div class="col">   
                                         <div class="form-group">
                                             <label for="Tipo_Ocorrencia">Tipo de Ocorrência :</label>
-                                            <select class="form-select" aria-label="Default select example">
-                                                <option selected disabled >Selecione</option>
-                                                <option value="1">One</option>
-                                                <option value="2">Two</option>
-                                                <option value="3">Three</option>
+                                            <select class="form-select" id="TipoOC" name="TipoOC" >
+                                                <option selected disabled  value="" >Selecione</option>
+                                                  @foreach(Session::get('Ocorrencias') as $tipo)
+                                                  <option value={{$tipo->ID}}>{{$tipo->Atividade_Descri}}</option>
+                                                  @endforeach  
                                               </select>                                       
-                                        </div>
+                                            </div>
                                      </div>
                                           <div class="col">
                                              <div class="form-group">
-                                                  <label for="Dev">DEV</label>
-                                                  <input list="DEVS" class="form-control" id="DevModal"  >
-                                             </div>
+                                                  <label for="DevModal">DEV</label>
+                                                  <select class="form-select" id="DevModal" name="DevModal" >
+                                                    <option selected disabled  value="" >Selecione</option>
+                                                      @foreach(Session::get('DEVS') as $dev)
+                                                      <option value={{$dev->id}}>{{$dev->Usuario}}</option>
+                                                      @endforeach  
+                                                  </select>  
+                                              </div>
                                          </div>
                                          <div class="col">
                                            <div class="form-group">
-                                               <label for="DataRetorno">Data</label>
-                                               <input type="date" value="" id="retornoInput" class="form-control" >
+                                               <label for="retornoInput">Data</label>
+                                               <input type="date" id="retornoInput" name="retornoInput" required class="form-control" >
                                             </div>
                                         </div>
                                     </div>  
                                    
                                     <div class="d-flex flex-row-reverse" style="margin-top: 5vh;" >
                                        <div class="col-2">
-                                         <button class="btn btn-outline-primary" type="submit" data-bs-dismiss="modal" style="width: 100px;" >Salvar</button>
+                                         <button class="btn btn-outline-primary" type="submit"  style="width: 100px;" >Salvar</button>
                                         </div>   
                                     </div>    
-                                 
-                                  
-                                
-                                
-                                
                                 </form>
                             </div>
                         </div>
-                           
-                    
                     </div>
+               </div>
             </div>
-        </div>
         
-       
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      
-      <script>
+   
+   <script>
          function atualizarHora() {
       var data = new Date();
       var hora = data.getHours();

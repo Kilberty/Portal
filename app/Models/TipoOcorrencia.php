@@ -5,10 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Usuario extends Model
+class TipoOcorrencia extends Model
 {
-   protected $table = 'Usuarios';
-   protected $primaryKey = 'id';
-   public $timestamps = true;
- 
+  protected $table = 'Tipo_Ocorrencia';
+  protected $primaryKey = 'ID';
+  
 }
