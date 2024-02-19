@@ -24,13 +24,14 @@
     function BuscaDia(){
         var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
     $.ajax({
-        url: "/BuscaOcorrencia",
+        url: "/DataOcorrencias",
         type: "POST",
         data: {
             _token: csrfToken,
             Data : document.getElementById('Data').value
         },
         success: function(response) {
+            
             location.reload();
         },
     })
@@ -44,7 +45,7 @@
     var Dia = DataAtual.getDate();
     var DataFormatada = Ano + '-' + Mes.toString().padStart(2, '0') + '-' + Dia.toString().padStart(2, '0');
     $.ajax({
-        url: "/DataOcorrencia",
+        url: "/DataOcorrencias",
         type: "POST",
         data: {
             _token: csrfToken,
@@ -159,26 +160,13 @@
   }); 
    
    
-    window.onload = function() {        
-      $data = document.getElementById('DataSessao').value;
-      $.ajax({
-        url: "/DataOcorrencia",
-        type: "POST",
-        data: {
-            _token: csrfToken,
-            Data: $data
-        },
-        success: function(response) {
-            location.reload();
-        },
-    })
-    }
-
+  
 
 
 
 </script>
     <div class="box ">
+       
         <input type="hidden" id="DataSessao" value="{{Session::get('data')}}">
         <div class="row" style="width: 100%">
             <div class="col-4">
@@ -201,9 +189,9 @@
                                         <tbody>
                                            @foreach(Session::get('Atividades') as $Atividades)
                                             <tr>
-                                                <th class="text-center"><a data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{$Atividades->tipoOcorrencia.Atividade_Descri}}</a></th>
-                                                    <th class="text-center">$Atividades->HoraChegada</th>
-                                                    <th class="text-center">$Atividades->HoraSaida</th>
+                                                <th class="text-center"><a data-bs-toggle="modal" data-bs-target="#staticBackdrop">{{$Atividades->tipoOcorrencia->Atividade_Descri}}</a></th>
+                                                    <th class="text-center">{{$Atividades->HoraChegada}}</th>
+                                                    <th class="text-center">{{$Atividades->HoraSaida}}</th>
                                               </tr>
                                             @endforeach
                                             <div class="modal fade  modal-xl" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">

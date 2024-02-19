@@ -31,5 +31,5 @@ Route::get('/logado', [LogadoController::class,'Logado']);
 Route::get('/clientes',[ClientesController::class,'clientes']);
 Route::post('/infradados',[InfraController::class,'infra']);
 Route::get('/infra',[ComputersController::class,'computers'])->name('infra');
-Route::post('/DataOcorrencia',[OcorrenciasController::class,'DataOcorrencias']);
+Route::post('/DataOcorrencias',[OcorrenciasController::class,'DataOcorrencias']);
 Route::post('/CreateOcorrencia',[OcorrenciasController::class,'CreateOcorrencia']);

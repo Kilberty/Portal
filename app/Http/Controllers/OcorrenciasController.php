@@ -12,25 +12,22 @@ class OcorrenciasController extends Controller
 {
    function DataOcorrencias(Request $request){
      $data_ocorrencia = $request->input('Data');   
+     echo($data_ocorrencia);
      $divide_data = explode("-",$data_ocorrencia);
      $dia = $divide_data[2];
 
      Session::put('data',$data_ocorrencia);
      Session::put('dia',$dia);
-     
+    
      
      $id = Session::get('id');
-     $Ocorrencia = Ocorrencias::where('ID_Colaborador',$id)
-                    ->where('Data_Retorno',$data)
-                    ->with('tipoOcorrencia')
-                    ->get(); 
-     
+     $Ocorrencia = Ocorrencia::where('Colaborador_ID',$id)
+     ->where('Data_Retorno',$data_ocorrencia)
+     ->with('tipoOcorrencia')
+     ->get(); 
+
+              
      Session::put('Atividades',$Ocorrencia);
-     
-     
-     
-     
-     
      return redirect('/logado');
    }
 
